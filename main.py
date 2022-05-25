@@ -192,13 +192,13 @@ def draw_window(snake, food, tails, points, health, time, direction, snake_speed
     elif snake.x < 0 and snake.y < 0:
         WINDOW.blit(pygame.transform.rotate(ARROW, 135), (40, 40))
     elif snake.x > WIDTH:
-        WINDOW.blit(ARROW, (WIDTH - 100, HEIGHT / 2 - 30))
+        WINDOW.blit(ARROW, (WIDTH - 100, snake.y))
     elif snake.x < 0:
-        WINDOW.blit(pygame.transform.rotate(ARROW, 180), (40, HEIGHT / 2 - 30))
+        WINDOW.blit(pygame.transform.rotate(ARROW, 180), (40, snake.y))
     elif snake.y > HEIGHT:
-        WINDOW.blit(pygame.transform.rotate(ARROW, 270), (WIDTH / 2 - 10, HEIGHT - 80))
+        WINDOW.blit(pygame.transform.rotate(ARROW, 270), (snake.x, HEIGHT - 80))
     elif snake.y < 0:
-        WINDOW.blit(pygame.transform.rotate(ARROW, 90), (WIDTH / 2 - 10, 40))
+        WINDOW.blit(pygame.transform.rotate(ARROW, 90), (snake.x - 10, 40))
 
 
     WINDOW.blit(show_points, (100, 40))
