@@ -5,7 +5,7 @@
 # - shoot your tail off
 # - game becomes a shooter, things coming out of the ground
 # -
-# - arrows for out of boundness
+# - food doesn't appear on snake
 # - armored chenille
 # - boss fight
 # - you can choose your snake size / food size ratio
@@ -82,14 +82,21 @@ SNAKE_TAIL_IMG_R = pygame.transform.rotate(SNAKE_TAIL_IMG_U, 270)
 
 global food_counter
 
-def handle_food(snake, food):
+def handle_food(snake, food, tails):
+    touch = True
     if snake.colliderect(food):
         pygame.event.post(pygame.event.Event(EAT_FOOD))
-        food.x = random.randint(40, 760)
-        food.y = random.randint(70, 570)
-        size = random.randint(FOOD_SIZE_L, FOOD_SIZE_H)
-        food.width = size
-        food.height = size
+        while (touch):
+            touch = False
+            food.x = random.randint(40, 760)
+            food.y = random.randint(70, 570)
+            size = random.randint(FOOD_SIZE_L, FOOD_SIZE_H)
+            food.width = size
+            food.height = size
+            for tail in tails:
+                if tail.colliderect(food):
+                    touch = True
+                    
     return food
 
 
@@ -278,7 +285,7 @@ def main():
         tails = tail_movement(tails, snake)
         keys_pressed = pygame.key.get_pressed()
         direction = snake_handle(keys_pressed, snake, direction, snake_speed)
-        food = handle_food(snake, food)
+        food = handle_food(snake, food, tails)
 
         time -= 1
         if time % 105 == 0:
