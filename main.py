@@ -1,3 +1,19 @@
+# ideas:
+#
+# - after x eats, new eat object is added to gameplay
+# - upgrade, you can absorb the food from a distance
+# - shoot your tail off
+# - game becomes a shooter, things coming out of the ground
+# -
+# - arrows for out of boundness
+# - armored chenille
+# - boss fight
+# - you can choose your snake size / food size ratio
+# - 
+# - games are built like songs
+# - the game transforms constantly
+
+
 import pygame
 import os
 import random
@@ -17,9 +33,9 @@ RED = (255, 0, 0)
 GREEN = (0, 128, 0)
 WHITE = (220, 220, 220)
 
-SNAKE_SIZE = 10
-FOOD_SIZE_L = 15
-FOOD_SIZE_H = 40
+SNAKE_SIZE = 11
+FOOD_SIZE_L = 18
+FOOD_SIZE_H = 45
 INIT_VELOCITY = 3
 TIME_LENGTH = 300
 
@@ -43,6 +59,9 @@ SALMON = pygame.image.load(os.path.join(
     '/Users/mankimanford/Documents/Code/PygameSnake/assets/salmon.png'))
 PIZZA = pygame.image.load(os.path.join(
     '/Users/mankimanford/Documents/Code/PygameSnake/assets/pizza.png'))
+
+ARROW = pygame.transform.scale(pygame.image.load(os.path.join(
+    '/Users/mankimanford/Documents/Code/PygameSnake/assets/arrow.png')), (SNAKE_SIZE*5, SNAKE_SIZE*5))
 
 SNAKE_HEAD_IMG_U = pygame.transform.scale(pygame.image.load(os.path.join(
     '/Users/mankimanford/Documents/Code/PygameSnake/assets/snakehead.png')), (SNAKE_SIZE*2, SNAKE_SIZE*3))
@@ -162,6 +181,26 @@ def draw_window(snake, food, tails, points, health, time, direction, snake_speed
     show_points = GAME_FONT.render("POINTS: " + str(points), 1, RED)
     show_health = GAME_FONT.render("HEALTH: " + health_bar, 1, YELLOW)
     show_time = GAME_FONT.render("TIME: " + str(time//50), 1, WHITE)
+
+    #out of bound arrows :
+    if snake.x > WIDTH and snake.y > HEIGHT:
+        WINDOW.blit(pygame.transform.rotate(ARROW, 315), (WIDTH - 100, HEIGHT - 80))
+    elif snake.x > WIDTH and snake.y < 0:
+        WINDOW.blit(pygame.transform.rotate(ARROW, 45), (WIDTH - 100, 40))
+    elif snake.x < 0 and snake.y > HEIGHT:
+        WINDOW.blit(pygame.transform.rotate(ARROW, 225), (40, HEIGHT - 80))
+    elif snake.x < 0 and snake.y < 0:
+        WINDOW.blit(pygame.transform.rotate(ARROW, 135), (40, 40))
+    elif snake.x > WIDTH:
+        WINDOW.blit(ARROW, (WIDTH - 100, HEIGHT / 2 - 30))
+    elif snake.x < 0:
+        WINDOW.blit(pygame.transform.rotate(ARROW, 180), (40, HEIGHT / 2 - 30))
+    elif snake.y > HEIGHT:
+        WINDOW.blit(pygame.transform.rotate(ARROW, 270), (WIDTH / 2 - 10, HEIGHT - 80))
+    elif snake.y < 0:
+        WINDOW.blit(pygame.transform.rotate(ARROW, 90), (WIDTH / 2 - 10, 40))
+
+
     WINDOW.blit(show_points, (100, 40))
     WINDOW.blit(show_time, (350, 520))
     WINDOW.blit(show_health, (500, 40))
@@ -204,32 +243,35 @@ def main():
             if event.type == EAT_FOOD:
                 CHOMP.play()
                 pygame.time.delay(food.width)
-                snake_speed += 0.10
+                snake_speed += 0.091
                 add_tail = True
                 calories = food.width
                 health += 10
-                if food.width >= 37:
+                if food.width >= FOOD_SIZE_H * 0.925:
                     calories *= 3
                     health += 40
-                    snake_speed *= 0.95
+                    snake_speed *= 0.96
                 if health > 1000:
                     health = 1000
                 points = points + calories + point_counter + (time_bonus//10)
                 time_bonus = 1000
                 time += 120
-                if food.width < 20:
-                    time += 240
+                if food.width < FOOD_SIZE_L * 1.35:
+                    time += 180
                 point_counter += 5
                 food_counter += 1
                 if food_counter > 4:
                     food_counter = 1
+                if time > 3000:
+                    time = 3000
+                    health += 50
                 temp_snake = pygame.Rect(snake.x, snake.y, SNAKE_SIZE, SNAKE_SIZE)
 
         if add_tail:
             tail_counter += 1
             tail = pygame.Rect(temp_snake.x, temp_snake.y, SNAKE_SIZE, SNAKE_SIZE)
             tails.append(tail)
-        if tail_counter >= calories:
+        if tail_counter >= calories/1.4:
             add_tail = False
             tail_counter = 0
                 
@@ -237,7 +279,6 @@ def main():
         keys_pressed = pygame.key.get_pressed()
         direction = snake_handle(keys_pressed, snake, direction, snake_speed)
         food = handle_food(snake, food)
-
 
         time -= 1
         if time % 105 == 0:
