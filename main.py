@@ -43,39 +43,39 @@ FPS = 60
 
 EAT_FOOD = pygame.USEREVENT + 1
 
-OUCH_SFX = pygame.mixer.Sound('/Users/mankimanford/Documents/Code/PygameSnake/assets/ouch.mp3')
-CHOMP = pygame.mixer.Sound('/Users/mankimanford/Documents/Code/PygameSnake/assets/chomp.mp3')
-MUSIC = pygame.mixer.Sound('/Users/mankimanford/Documents/Code/PygameSnake/assets/music.mp3')
-GAMEOVER = pygame.mixer.Sound('/Users/mankimanford/Documents/Code/PygameSnake/assets/gameover.mp3')
+OUCH_SFX = pygame.mixer.Sound('assets/ouch.mp3')
+CHOMP = pygame.mixer.Sound('assets/chomp.mp3')
+MUSIC = pygame.mixer.Sound('assets/music.mp3')
+GAMEOVER = pygame.mixer.Sound('assets/gameover.mp3')
 
 GRASS_BACKGROUND = pygame.image.load(os.path.join(
-    '/Users/mankimanford/Documents/Code/PygameSnake/assets/grass.png'))
+    'assets/grass.png'))
 
 BURGER_IMG = pygame.image.load(os.path.join(
-    '/Users/mankimanford/Documents/Code/PygameSnake/assets/burger.png'))
+    'assets/burger.png'))
 ASIAN_FOOD = pygame.image.load(os.path.join(
-    '/Users/mankimanford/Documents/Code/PygameSnake/assets/asian.png'))
+    'assets/asian.png'))
 SALMON = pygame.image.load(os.path.join(
-    '/Users/mankimanford/Documents/Code/PygameSnake/assets/salmon.png'))
+    'assets/salmon.png'))
 PIZZA = pygame.image.load(os.path.join(
-    '/Users/mankimanford/Documents/Code/PygameSnake/assets/pizza.png'))
+    'assets/pizza.png'))
 
 ARROW = pygame.transform.scale(pygame.image.load(os.path.join(
-    '/Users/mankimanford/Documents/Code/PygameSnake/assets/arrow.png')), (SNAKE_SIZE*5, SNAKE_SIZE*5))
+    'assets/arrow.png')), (SNAKE_SIZE*5, SNAKE_SIZE*5))
 
 SNAKE_HEAD_IMG_U = pygame.transform.scale(pygame.image.load(os.path.join(
-    '/Users/mankimanford/Documents/Code/PygameSnake/assets/snakehead.png')), (SNAKE_SIZE*2, SNAKE_SIZE*3))
+    'assets/snakehead.png')), (SNAKE_SIZE*2, SNAKE_SIZE*3))
 SNAKE_HEAD_IMG_L = pygame.transform.rotate(SNAKE_HEAD_IMG_U, 90)
 SNAKE_HEAD_IMG_D = pygame.transform.rotate(SNAKE_HEAD_IMG_U, 180)
 SNAKE_HEAD_IMG_R = pygame.transform.rotate(SNAKE_HEAD_IMG_U, 270)
 
 
 SNAKE_BODY_IMG_U = pygame.transform.scale(pygame.image.load(
-    os.path.join('/Users/mankimanford/Documents/Code/PygameSnake/assets/snakebody.png')), (SNAKE_SIZE*2, SNAKE_SIZE*2.5))
+    os.path.join('assets/snakebody.png')), (SNAKE_SIZE*2, SNAKE_SIZE*2.5))
 SNAKE_BODY_IMG_L = pygame.transform.rotate(SNAKE_BODY_IMG_U, 90)
 
 SNAKE_TAIL_IMG_U = pygame.transform.scale(pygame.image.load(
-    os.path.join('/Users/mankimanford/Documents/Code/PygameSnake/assets/snaketail.png')), (SNAKE_SIZE*2, SNAKE_SIZE*2.5))
+    os.path.join('assets/snaketail.png')), (SNAKE_SIZE*2, SNAKE_SIZE*2.5))
 SNAKE_TAIL_IMG_L = pygame.transform.rotate(SNAKE_TAIL_IMG_U, 90)
 SNAKE_TAIL_IMG_D = pygame.transform.rotate(SNAKE_TAIL_IMG_U, 180)
 SNAKE_TAIL_IMG_R = pygame.transform.rotate(SNAKE_TAIL_IMG_U, 270)
